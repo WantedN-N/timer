@@ -24,6 +24,14 @@
       "allowToChangeInstallationDirectory": true,
       "language": "1042"
     },
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["x64", "arm64"] }],
+      "identity": null,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "sign": false
+    },
     "files": [
       "index.html",
       "main.js",
