@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-builder --win --publish never"
+    "build": "electron-builder --win --publish never",
+    "build:mac": "electron-builder --mac --publish never"
   },
   "author": "Seongae",
   "devDependencies": {
