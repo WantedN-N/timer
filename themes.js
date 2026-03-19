@@ -41,7 +41,8 @@ const THEMES = {
       size:      '52px',
       animation: 'catrun',
     },
-    target: { emoji: '🦋', size: '38px' },
+    targetFollows: true,
+    target: { emoji: '🦋', size: '26px' },
     background: `linear-gradient(
       to bottom,
       rgba(34,139,34,0) 0%,
@@ -67,6 +68,7 @@ const THEMES = {
       size:      '52px',
       animation: 'dogrun',
     },
+    targetFollows: true,
     target: { emoji: '🎾', size: '36px' },
     background: `linear-gradient(
       to bottom,

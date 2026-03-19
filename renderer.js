@@ -3,6 +3,7 @@
    ══════════════════════════════════════════════════ */
 
 const TOTAL_SECONDS = 600;
+const TARGET_GAP    = 52;   // 배우 앞 타겟까지 간격(px)
 let remaining   = TOTAL_SECONDS;
 let intervalId  = null;
 let isOver      = false;
@@ -59,6 +60,18 @@ function applyTheme(id) {
   $targetEm.style.fontSize = t.target.size;
   $target.style.bottom     = t.targetBottom;
 
+  /* targetFollows 테마: left 기준 / 아니면 right 고정 */
+  if (t.targetFollows) {
+    $target.style.right     = 'auto';
+    $target.style.left      = '0';
+    $target.style.transition = 'bottom 0.3s, transform 0.95s linear';
+  } else {
+    $target.style.left      = 'auto';
+    $target.style.right     = '148px';
+    $target.style.transform = '';
+    $target.style.transition = 'bottom 0.3s';
+  }
+
   /* 배우 그룹 재생성 */
   $group.innerHTML = '';
   $group.style.bottom = t.actorBottom;
@@ -77,11 +90,22 @@ function applyTheme(id) {
 /* ══ 배우 위치 계산 ═════════════════════════════════ */
 function updateActorPosition() {
   if (isOver) return;
+  const t        = THEMES[activeTheme];
   const elapsed  = TOTAL_SECONDS - remaining;
   const progress = elapsed / TOTAL_SECONDS;
-  const groupW   = $group.getBoundingClientRect().width || 260;
-  const maxX     = window.innerWidth - 148 - groupW - 16;
-  $group.style.transform = `translateX(${Math.round(progress * maxX)}px)`;
+  const groupW   = $group.getBoundingClientRect().width || 60;
+
+  if (t.targetFollows) {
+    /* 타겟이 배우 바로 앞에서 같이 이동 */
+    const targetW = $target.getBoundingClientRect().width || 50;
+    const maxX    = window.innerWidth - 148 - groupW - TARGET_GAP - targetW;
+    const actorX  = Math.round(progress * maxX);
+    $group.style.transform  = `translateX(${actorX}px)`;
+    $target.style.transform = `translateX(${actorX + groupW + TARGET_GAP}px)`;
+  } else {
+    const maxX = window.innerWidth - 148 - groupW - 16;
+    $group.style.transform = `translateX(${Math.round(progress * maxX)}px)`;
+  }
 }
 
 /* ══ 타임오버 ════════════════════════════════════════ */
@@ -89,13 +113,25 @@ function handleTimeover() {
   isOver = true;
   clearInterval(intervalId);
 
-  /* 배우 → 목표물 위치로 스냅 */
-  const tRect = $target.getBoundingClientRect();
-  const gW    = $group.getBoundingClientRect().width || 260;
-  $group.style.transition = 'transform 0.4s ease-out';
-  $group.style.transform  = `translateX(${tRect.left - gW - 4}px)`;
-  $targetEm.style.animation = 'none';
+  const t    = THEMES[activeTheme];
+  const gW   = $group.getBoundingClientRect().width || 60;
 
+  if (t.targetFollows) {
+    /* 배우가 타겟에 닿는 위치로 스냅 */
+    const targetW     = $target.getBoundingClientRect().width || 50;
+    const finalTarget = window.innerWidth - 148 - targetW - 8;
+    const finalActor  = finalTarget - TARGET_GAP - gW;
+    $group.style.transition  = 'transform 0.4s ease-out';
+    $target.style.transition = 'transform 0.4s ease-out';
+    $group.style.transform   = `translateX(${finalActor}px)`;
+    $target.style.transform  = `translateX(${finalTarget}px)`;
+  } else {
+    const tRect = $target.getBoundingClientRect();
+    $group.style.transition = 'transform 0.4s ease-out';
+    $group.style.transform  = `translateX(${tRect.left - gW - 4}px)`;
+  }
+
+  $targetEm.style.animation = 'none';
   $msg.textContent = THEMES[activeTheme].timeoverMsg;
   $overlay.classList.add('active');
   $timer.style.display = 'none';
@@ -122,6 +158,7 @@ function startTimer() {
   $overlay.classList.remove('active');
   $targetEm.style.animation  = '';
   $group.style.transition    = 'transform 0.95s linear';
+  $target.style.transition   = 'bottom 0.3s, transform 0.95s linear';
 
   applyTheme(activeTheme);
   intervalId = setInterval(tick, 1000);
