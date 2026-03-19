@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100" width="80" height="100">
+  <!-- 몸통 (진한 네이비) -->
+  <ellipse cx="40" cy="68" rx="22" ry="28" fill="#1a2340"/>
+  <!-- 배 (흰 타원) -->
+  <ellipse cx="40" cy="72" rx="13" ry="19" fill="#f0ece4"/>
+  <!-- 머리 -->
+  <circle cx="40" cy="36" r="22" fill="#1a2340"/>
+  <!-- 뺨 흰 패치 -->
+  <ellipse cx="30" cy="42" rx="6" ry="5" fill="#f0ece4"/>
+  <ellipse cx="50" cy="42" rx="6" ry="5" fill="#f0ece4"/>
+  <!-- 눈 흰자 -->
+  <ellipse cx="33" cy="31" rx="5.5" ry="6" fill="#ffffff"/>
+  <ellipse cx="47" cy="31" rx="5.5" ry="6" fill="#ffffff"/>
+  <!-- 눈동자 -->
+  <circle cx="34.5" cy="32.5" r="3.2" fill="#111"/>
+  <circle cx="48.5" cy="32.5" r="3.2" fill="#111"/>
+  <!-- 눈 하이라이트 -->
+  <circle cx="35.8" cy="31.2" r="1.1" fill="#ffffff"/>
+  <circle cx="49.8" cy="31.2" r="1.1" fill="#ffffff"/>
+  <!-- 부리 (주황) -->
+  <polygon points="40,41 35,48 45,48" fill="#e8720c"/>
+  <line x1="35" y1="48" x2="45" y2="48" stroke="#c05a06" stroke-width="1.2"/>
+  <!-- 왼쪽 날개 -->
+  <ellipse cx="16" cy="65" rx="7" ry="18" fill="#141a30" transform="rotate(-12 16 65)"/>
+  <!-- 오른쪽 날개 -->
+  <ellipse cx="64" cy="65" rx="7" ry="18" fill="#141a30" transform="rotate(12 64 65)"/>
+  <!-- 빨간 목도리 -->
+  <rect x="22" y="52" width="36" height="8" rx="4" fill="#d42020"/>
+  <rect x="26" y="52" width="6" height="12" rx="3" fill="#d42020"/>
+  <!-- 발 (주황) -->
+  <ellipse cx="31" cy="97" rx="9" ry="4" fill="#e8720c"/>
+  <ellipse cx="49" cy="97" rx="9" ry="4" fill="#e8720c"/>
+</svg>

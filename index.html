@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <title>발표 타이머</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <!-- 하단 배경 스트립 -->
+  <div id="strip"></div>
+
+  <!-- 목표물 (깃발 / 나비 / 테니스공) — 오른쪽 끝 고정 -->
+  <div id="targetWrap">
+    <span id="targetEmoji"></span>
+  </div>
+
+  <!-- 동물 이모지 그룹 -->
+  <div id="actorGroup"></div>
+
+  <!-- 타이머 텍스트 -->
+  <div id="timerDisplay">10:00</div>
+
+  <!-- Time Over 오버레이 -->
+  <div id="timeoverOverlay">
+    <span id="timeoverMsg"></span>
+  </div>
+
+  <script src="themes.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

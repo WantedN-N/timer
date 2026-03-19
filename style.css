@@ -1,0 +1,126 @@
+/* ═══════ 리셋 & 루트 ════════════════════════════ */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html, body {
+  width:100%; height:100%;
+  background: transparent;
+  overflow: hidden;
+  -webkit-user-select:none; user-select:none;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* ═══════ 배경 스트립 ═══════════════════════════ */
+#strip {
+  position:fixed; bottom:0; left:0; width:100%;
+  z-index:1;
+  transition: background 0.5s ease, height 0.3s;
+}
+
+/* ═══════ 목표물 (오른쪽 끝 고정) ══════════════ */
+#targetWrap {
+  position:fixed; right:148px;
+  z-index:12; pointer-events:none;
+  transition: bottom 0.3s;
+}
+#targetEmoji {
+  display:inline-block;
+  animation: targetFloat 1.4s ease-in-out infinite alternate;
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.55));
+}
+@keyframes targetFloat {
+  from { transform: translateY(0)   rotate(-6deg); }
+  to   { transform: translateY(-9px) rotate(6deg); }
+}
+
+/* ═══════ 배우 그룹 ══════════════════════════════ */
+#actorGroup {
+  position:fixed; left:0;
+  display:flex; align-items:flex-end; gap:2px;
+  transform:translateX(0);
+  transition:transform 0.95s linear;
+  z-index:10; will-change:transform;
+}
+
+/* ── 개별 배우 공통 ── */
+.actor {
+  display:inline-block; line-height:1;
+  filter: drop-shadow(0 3px 5px rgba(0,0,0,0.55));
+  animation-duration: 0.52s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+img.actor { image-rendering: auto; }
+.actor:nth-child(even) { animation-direction: alternate-reverse; }
+
+/* ── 펭귄(핑구) 뒤뚱 ── */
+@keyframes waddle {
+  from { transform: rotate(-6deg) translateY(0);    }
+  to   { transform: rotate(6deg)  translateY(-5px); }
+}
+
+/* ── 고양이 달리기 ── */
+@keyframes catrun {
+  0%   { transform: translateY(0)    rotate(0);     }
+  30%  { transform: translateY(-7px) rotate(4deg);  }
+  60%  { transform: translateY(0)    rotate(0);     }
+  80%  { transform: translateY(-4px) rotate(-3deg); }
+  100% { transform: translateY(0)    rotate(0);     }
+}
+
+/* ── 강아지 달리기 ── */
+@keyframes dogrun {
+  0%   { transform: translateY(0);                }
+  25%  { transform: translateY(-9px) scaleX(1.06); }
+  50%  { transform: translateY(0);                }
+  75%  { transform: translateY(-5px) scaleX(0.97); }
+  100% { transform: translateY(0);                }
+}
+
+/* ═══════ 타이머 ═════════════════════════════════ */
+#timerDisplay {
+  position:fixed; bottom:36px; right:32px;
+  font-size:52px; font-weight:900;
+  color:#fff; letter-spacing:3px;
+  font-variant-numeric:tabular-nums;
+  pointer-events:none; z-index:20;
+  text-shadow:
+    2px 2px 0 #000, -2px -2px 0 #000,
+    2px -2px 0 #000, -2px 2px 0 #000,
+    0 0 8px rgba(0,0,0,0.9),
+    0 0 22px var(--glow, rgba(80,200,255,0.85));
+  transition: text-shadow 0.4s;
+}
+#timerDisplay.warning {
+  color:#ff4040;
+  animation: timerPulse 0.75s ease-in-out infinite alternate;
+  text-shadow:
+    2px 2px 0 #000, -2px -2px 0 #000,
+    2px -2px 0 #000, -2px 2px 0 #000,
+    0 0 8px rgba(0,0,0,0.9),
+    0 0 22px var(--glow-warn, rgba(255,80,80,0.9));
+}
+@keyframes timerPulse {
+  from { transform:scale(1); }
+  to   { transform:scale(1.07); }
+}
+
+/* ═══════ Time Over 오버레이 ════════════════════ */
+#timeoverOverlay {
+  display:none; position:fixed; inset:0;
+  align-items:center; justify-content:center;
+  z-index:100; pointer-events:none;
+}
+#timeoverOverlay.active { display:flex; }
+
+#timeoverMsg {
+  font-size:58px; font-weight:900;
+  color: var(--timeover-color,#fff);
+  text-shadow:
+    0 0 14px rgba(0,0,0,1),
+    3px 3px 0 var(--timeover-shadow,#cc0000),
+    -3px -3px 0 var(--timeover-shadow,#cc0000),
+    0 0 32px rgba(255,100,0,0.8);
+  animation: blink 0.55s step-start infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
